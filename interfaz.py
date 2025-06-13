@@ -22,11 +22,11 @@ class Interfaz():
         self.frame3 = tk.Frame(self.ventana1, bg="#161616")
         self.ventana1.add(self.frame3, text="administrador")
 
-        self.btnInventario = tk.Button(self.frame1, text="Inventario",bd=0,fg="white",bg="#161616")
+        self.btnInventario = tk.Button(self.frame1, text="Inventario", fg="white",bg="#161616")
         self.btnInventario.place(x=140,y=350, width=80, height=30)
         Tooltip(self.btnInventario, "carros disponibles y precios")
 
-        self.btnAlquiler = tk.Button(self.frame1, text="Alquilar", bd=0,fg="white", bg="#161616")
+        self.btnAlquiler = tk.Button(self.frame1, text="Alquilar", fg="white", bg="#161616")
         self.btnAlquiler.place(x=460, y=350, width=80, height=30)
         Tooltip(self.btnAlquiler, "alquile su vehiculo y mire sus especificaciones")
 
@@ -39,7 +39,7 @@ class Interfaz():
         self.label1= tk.Label(self.ventana, image=self.logo,bd=0)
         self.label1.place(x=190,y=60,width=300,height=200)
         self.funciones = Funciones(self.ventana)
-        self.btnEntrar = tk.Button(self.ventana,text="Entrar", bd=0,bg="#161616",fg="white", font=(",20"), command=self.abrir_pestanas)
+        self.btnEntrar = tk.Button(self.ventana,text="Entrar",bg="#161616",fg="white", font=(",20"), command=self.abrir_pestanas)
         self.btnEntrar.place(x=300,y=300, width=80, height=30)
         Tooltip(self.btnEntrar, "entrar al menu principal.." )
 
