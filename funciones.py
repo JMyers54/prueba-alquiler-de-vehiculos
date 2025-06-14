@@ -108,10 +108,10 @@ class Funciones():
         autos = [
             {"nombre": "FERRARI 458 ITALIA", "estado": "Disponible", "precio": "$500/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0041.jpg"},
             {"nombre": "LAMBORGHINI HURACAN", "estado": "Alquilado", "precio": "$723/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0039.jpg"},
-            {"nombre": "LAMBORGHINI CALLARDO", "estado": "Disponible", "precio": "$630/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0042.jpg"},
+            {"nombre": "LAMBORGHINI CALLARDO", "estado": "Alquilado", "precio": "$630/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0042.jpg"},
             {"nombre": "BMW M4", "estado": "Disponible", "precio": "$479/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0043.jpg"},
             {"nombre": "BMW M8", "estado": "Alquilado", "precio": "$723/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0044.jpg"},
-            {"nombre": "PORSCHE 911GT3", "estado": "Disponible", "precio": "$630/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0045.jpg"},
+            {"nombre": "PORSCHE 911GT3", "estado": "Alquilado", "precio": "$630/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0045.jpg"},
             {"nombre": "PORSCHE 918 SPYDER", "estado": "Disponible", "precio": "$479/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0046.jpg"},
             {"nombre": "FERRARI F40", "estado": "Alquilado", "precio": "$723/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0048.jpg"},
             {"nombre": "BUGATTI VEYRON", "estado": "Disponible", "precio": "$630/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0049.jpg"},
