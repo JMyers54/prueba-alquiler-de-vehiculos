@@ -1,11 +1,10 @@
 from tkinter import *
 import tkinter as tk
+from Controllers.funciones import Funciones
+from Views.Tooltip import Tooltip
 from PIL import Image, ImageTk
 
-class Funciones():
-    def __init__(self, ventana):
-        self.ventana = ventana
-
+class Interfaz():
     def abrir_pestanas(self):
         self.nueva_ventana = tk.Toplevel(self.ventana)
         self.nueva_ventana.title("Panel principal")
@@ -51,7 +50,7 @@ class Funciones():
         label2 = tk.Label(self.frame_MENU, image=self.img_MENU2, bg="#161616", bd=0)
         label2.place(relx=0.5, rely=0.2, anchor="n")
         
-       
+
         label3 = tk.Label(self.frame_MENU, text="NUEVA ADQUISICIÓN", fg="white", bg="#161616", font=("Arial", 18, "bold"))
         label3.place(relx=0.5, rely=0.78, anchor="n")
 
@@ -60,7 +59,6 @@ class Funciones():
         
         label5 = tk.Label(self.frame_MENU, text="LAMBORGHINI VENENO", fg="white", bg= "#161616", font=("Arial", 16))
         label5.place(relx=0.5, rely=0.85, anchor="n")
-                          
 
 
         tk.Label(self.frame_empleado, text="Gestión de empleados", fg="white", bg="#161616", font=("Arial", 18)).pack(pady=50)
@@ -149,3 +147,33 @@ class Funciones():
             tk.Label(frame_auto, text=f"Estado: {auto['estado']}", bg="#2a2a2a", fg="white").pack()
             tk.Label(frame_auto, text=f"Precio: {auto['precio']}", bg="#2a2a2a", fg="white").pack()
 
+
+    def __init__(self):
+        self.ventana = tk.Tk()
+        self.ventana.title("Alquiler de carros")
+        self.ventana.config(width=700, height=500, bg="#161616")
+
+        self.logo = tk.PhotoImage(file=r"prueba-alquiler-de-vehiculos\icons\logo.png")
+        self.label1 = tk.Label(self.ventana, image=self.logo, bd=0)
+        self.label1.place(x=190, y=60, width=300, height=200)
+
+        # ✅ Crear instancia de Funciones
+        self.funciones = Funciones(self.ventana)
+
+        # ✅ El botón Entrar llama a abrir_pestanas de la clase Funciones
+        self.btnEntrar = tk.Button(
+            self.ventana,
+            text="Entrar",
+            bg="#161616",
+            fg="white",
+            font=(",20"),
+            command=self.abrir_pestanas
+        )
+        self.btnEntrar.place(x=300, y=300, width=80, height=30)
+        Tooltip(self.btnEntrar, "Entrar al menú principal...")
+
+        self.ventana.mainloop()
+
+# Ejecutar la interfaz
+if __name__ == "__main__":
+    Interfaz()
