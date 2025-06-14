@@ -10,7 +10,7 @@ class Interfaz():
         self.ventana.title("alquiler de carros")
         self.ventana.config(width=700, height=500, bg="#161616")
 
-        self.logo= tk.PhotoImage(file=r"icons\logo.png")
+        self.logo= tk.PhotoImage(file=r"prueba-alquiler-de-vehiculos\icons\logo.png")
         self.label1= tk.Label(self.ventana, image=self.logo,bd=0)
         self.label1.place(x=190,y=60,width=300,height=200)
         self.funciones = Funciones(self.ventana)
