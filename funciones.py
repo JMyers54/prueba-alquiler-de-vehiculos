@@ -16,13 +16,13 @@ class Funciones():
         self.frame_lateral.place(x=0, y=0, relheight=1)
 
         self.btn_jcs = tk.Button(self.frame_lateral, text="MENÚ", command=self.mostrar_MENU, bg="#333", fg="white")
-        self.btn_jcs.place(relx=0.5, rely=0.05, anchor="center", width=100, height=40)
+        self.btn_jcs.place(relx=0.5, rely=0.50, anchor="center", width=100, height=40)
 
         self.btn_empleado = tk.Button(self.frame_lateral, text="EMPLEADO", command=self.mostrar_empleado, bg="#333", fg="white")
-        self.btn_empleado.place(relx=0.5, rely=0.12, anchor="center", width=100, height=40)
+        self.btn_empleado.place(relx=0.5, rely=0.43, anchor="center", width=100, height=40)
 
         self.btn_inventario = tk.Button(self.frame_lateral, text="INVENTARIO", command=self.mostrar_inventario, bg="#333", fg="white")
-        self.btn_inventario.place(relx=0.5, rely=0.19, anchor="center", width=100, height=40)
+        self.btn_inventario.place(relx=0.5, rely=0.57, anchor="center", width=100, height=40)
 
         self.contenedor_frames = tk.Frame(self.nueva_ventana, bg="#161616", width=1050, height=700)
         self.contenedor_frames.place(x=150, y=0)
@@ -41,15 +41,27 @@ class Funciones():
         ruta_img1 = "prueba-alquiler-de-vehiculos/icons/logo.png"
         ruta_img2 = "prueba-alquiler-de-vehiculos/icons/lamborghini-veneno-1.png"
 
-        imagen1 = Image.open(ruta_img1).resize((350, 200))
+        imagen1 = Image.open(ruta_img1).resize((300, 300))
         self.img_MENU1 = ImageTk.PhotoImage(imagen1)
         label1 = tk.Label(self.frame_MENU, image=self.img_MENU1, bg="#161616", bd=0)
-        label1.place(relx=0.5, y=-10, anchor="n")
+        label1.place(relx=0.5, y=-70, anchor="n")
 
         imagen2 = Image.open(ruta_img2).resize((800, 400))
         self.img_MENU2 = ImageTk.PhotoImage(imagen2)
         label2 = tk.Label(self.frame_MENU, image=self.img_MENU2, bg="#161616", bd=0)
-        label2.place(relx=0.5, rely=0.3, anchor="n")
+        label2.place(relx=0.5, rely=0.2, anchor="n")
+        
+       
+        label3 = tk.Label(self.frame_MENU, text="NUEVA ADQUISICIÓN", fg="white", bg="#161616", font=("Arial", 18, "bold"))
+        label3.place(relx=0.5, rely=0.78, anchor="n")
+
+        label4 = tk.Label(self.frame_MENU, text="Precio: $1000", fg="white", bg="#161616", font=("Arial", 16))
+        label4.place(relx=0.5, rely=0.92, anchor="n")
+        
+        label5 = tk.Label(self.frame_MENU, text="LAMBORGHINI VENENO", fg="white", bg= "#161616", font=("Arial", 16))
+        label5.place(relx=0.5, rely=0.85, anchor="n")
+                          
+
 
         tk.Label(self.frame_empleado, text="Gestión de empleados", fg="white", bg="#161616", font=("Arial", 18)).pack(pady=50)
 
@@ -88,7 +100,6 @@ class Funciones():
             font=("Arial", 22)
         ).pack(pady=10)
 
-        # Canvas y Scrollbar
         canvas = tk.Canvas(self.frame_inventario, bg="#161616", highlightthickness=0)
         canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
