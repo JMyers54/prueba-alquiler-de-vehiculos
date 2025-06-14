@@ -59,7 +59,6 @@ class Interfaz():
         label5 = tk.Label(self.frame_MENU, text="LAMBORGHINI VENENO", fg="white", bg="#161616", font=("Arial", 16))
         label5.place(relx=0.5, rely=0.85, anchor="n")
 
-        # Sección EMPLEADO
         tk.Label(self.frame_empleado, text="Gestión de empleados", fg="white", bg="#161616", font=("Arial", 18)).pack(pady=30)
 
         entrada_frame = tk.Frame(self.frame_empleado, bg="#161616")
@@ -105,8 +104,62 @@ class Interfaz():
         self.actualizar_estado_botones("INVENTARIO")
 
     def construir_inventario(self):
-        # (Contenido sin cambios)
-        pass
+        tk.Label(
+            self.frame_inventario,
+            text="INVENTARIO DE AUTOS",
+            fg="white",
+            bg="#161616",
+            font=("Arial", 22)
+        ).pack(pady=10)
+
+        canvas = tk.Canvas(self.frame_inventario, bg="#161616", highlightthickness=0)
+        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        scrollbar = tk.Scrollbar(self.frame_inventario, orient=tk.VERTICAL, command=canvas.yview)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        frame_scroll = tk.Frame(canvas, bg="#161616")
+        canvas.create_window((0, 0), window=frame_scroll, anchor='nw')
+
+        def actualizar_scroll(event):
+            canvas.configure(scrollregion=canvas.bbox("all"))
+
+        frame_scroll.bind("<Configure>", actualizar_scroll)
+
+        autos = [
+            {"nombre": "FERRARI 458 ITALIA", "estado": "Disponible", "precio": "$500/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0041.jpg"},
+            {"nombre": "LAMBORGHINI HURACAN", "estado": "Alquilado", "precio": "$723/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0039.jpg"},
+            {"nombre": "LAMBORGHINI CALLARDO", "estado": "Alquilado", "precio": "$630/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0042.jpg"},
+            {"nombre": "BMW M4", "estado": "Disponible", "precio": "$479/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0043.jpg"},
+            {"nombre": "BMW M8", "estado": "Alquilado", "precio": "$723/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0044.jpg"},
+            {"nombre": "PORSCHE 911GT3", "estado": "Alquilado", "precio": "$630/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0045.jpg"},
+            {"nombre": "PORSCHE 918 SPYDER", "estado": "Disponible", "precio": "$479/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0046.jpg"},
+            {"nombre": "FERRARI F40", "estado": "Alquilado", "precio": "$723/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0048.jpg"},
+            {"nombre": "BUGATTI VEYRON", "estado": "Disponible", "precio": "$630/día", "imagen": "prueba-alquiler-de-vehiculos/icons/IMG-20250613-WA0049.jpg"},
+        ]
+
+        columnas = 3
+        for i, auto in enumerate(autos):
+            frame_auto = tk.Frame(frame_scroll, bg="#2a2a2a", padx=10, pady=10)
+            frame_auto.grid(row=i // columnas, column=i % columnas, padx=15, pady=15)
+
+            try:
+                img = Image.open(auto["imagen"]).resize((250, 130))
+                foto = ImageTk.PhotoImage(img)
+            except Exception as e:
+                foto = None
+                print(f"Error cargando imagen {auto['imagen']}: {e}")
+
+            if foto:
+                lbl_img = tk.Label(frame_auto, image=foto, bg="#2a2a2a")
+                lbl_img.image = foto
+                lbl_img.pack()
+
+            tk.Label(frame_auto, text=auto["nombre"], bg="#2a2a2a", fg="white", font=("Arial", 12, "bold")).pack()
+            tk.Label(frame_auto, text=f"Estado: {auto['estado']}", bg="#2a2a2a", fg="white").pack()
+            tk.Label(frame_auto, text=f"Precio: {auto['precio']}", bg="#2a2a2a", fg="white").pack()
 
     def __init__(self):
         self.ventana = tk.Tk()
@@ -131,7 +184,6 @@ class Interfaz():
         Tooltip(self.btnEntrar, "Entrar al menú principal...")
 
         self.ventana.mainloop()
-
 
 if __name__ == "__main__":
     Interfaz()
