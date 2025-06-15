@@ -1,7 +1,7 @@
 from tkinter import *
 import tkinter as tk
-from Controllers.funciones import Funciones
 from Views.Tooltip import Tooltip
+from Controllers.funcionesGenerales import Funciones
 from PIL import Image, ImageTk
 
 class Interfaz():
@@ -11,17 +11,17 @@ class Interfaz():
         self.nueva_ventana.geometry("1200x700")
         self.nueva_ventana.config(bg="#161616")
 
-        self.frame_lateral = tk.Frame(self.nueva_ventana, bg="#161616", width=150)
+        self.frame_lateral = tk.Frame(self.nueva_ventana, bg="#1B1B1B", width=140)
         self.frame_lateral.place(x=0, y=0, relheight=1)
 
         self.btn_jcs = tk.Button(self.frame_lateral, text="MENÚ", command=self.mostrar_MENU, bg="#333", fg="white")
-        self.btn_jcs.place(relx=0.5, rely=0.50, anchor="center", width=100, height=40)
+        self.btn_jcs.place(relx=0.5, rely=0.1, anchor="center", width=100, height=40)
 
         self.btn_empleado = tk.Button(self.frame_lateral, text="EMPLEADO", command=self.mostrar_empleado, bg="#333", fg="white")
-        self.btn_empleado.place(relx=0.5, rely=0.43, anchor="center", width=100, height=40)
+        self.btn_empleado.place(relx=0.5, rely=0.24, anchor="center", width=100, height=40)
 
         self.btn_inventario = tk.Button(self.frame_lateral, text="INVENTARIO", command=self.mostrar_inventario, bg="#333", fg="white")
-        self.btn_inventario.place(relx=0.5, rely=0.57, anchor="center", width=100, height=40)
+        self.btn_inventario.place(relx=0.5, rely=0.17, anchor="center", width=100, height=40)
 
         self.contenedor_frames = tk.Frame(self.nueva_ventana, bg="#161616", width=1050, height=700)
         self.contenedor_frames.place(x=150, y=0)
@@ -64,17 +64,46 @@ class Interfaz():
         entrada_frame = tk.Frame(self.frame_empleado, bg="#161616")
         entrada_frame.pack(pady=10)
 
-        lbl_cedula = tk.Label(entrada_frame, text="Ingrese cédula", fg="white", bg="#161616", font=("Arial", 14))
-        lbl_cedula.pack(pady=5)
-        entry_cedula = tk.Entry(entrada_frame, font=("Arial", 12))
-        entry_cedula.pack(pady=5)
+        lblCedula = tk.Label(entrada_frame, text="Ingrese cédula", fg="white", bg="#161616", font=("Arial", 14))
+        lblCedula.pack(pady=5)
+        entryCedula = tk.Entry(entrada_frame, font=("Arial", 12))
+        entryCedula.pack(pady=5)
 
-        lbl_contra = tk.Label(entrada_frame, text="Agregue contraseña", fg="white", bg="#161616", font=("Arial", 14))
-        lbl_contra.pack(pady=5)
-        entry_contra = tk.Entry(entrada_frame, show="*", font=("Arial", 12))
-        entry_contra.pack(pady=5)
+        lblNombre = tk.Label(entrada_frame, text="Ingrese su Nombre", fg="white", bg="#161616", font=("arial", 14))
+        lblNombre.pack(pady=5)
+        entryNombre = tk.Entry(entrada_frame, font=("arial", 12))
+        entryNombre.pack(pady=5)
 
-        btn_ingresar = tk.Button(entrada_frame, text="Ingresar", font=("Arial", 12), bg="#333", fg="white")
+        lblApellido = tk.Label(entrada_frame, text="Ingrese sus apellidos", fg="white", bg="#161616", font=("Arial", 14))
+        lblApellido.pack(pady=5)
+        entryApellido = tk.Entry(entrada_frame, font=("arial", 12))
+        entryApellido.pack(pady=5)
+
+        lbltelefono = tk.Label(entrada_frame, text="Ingrese su telefono", fg="white", bg="#161616", font=("Arial", 14))
+        lbltelefono.pack(pady=5)
+        entryTelefono = tk.Entry(entrada_frame, font=("arial", 12))
+        entryTelefono.pack(pady=5)
+
+        lblContra = tk.Label(entrada_frame, text="Agregue contraseña", fg="white", bg="#161616", font=("Arial", 14))
+        lblContra.pack(pady=5)
+        entryContra = tk.Entry(entrada_frame, show="*", font=("Arial", 12))
+        entryContra.pack(pady=5)
+
+        lblEmail = tk.Label(entrada_frame, text="agregue su email", fg="white", bg="#161616", font=("Arial", 14))
+        lblEmail.pack(pady=5)
+        entryEmail = tk.Entry(entrada_frame, font=("Arial",12))
+        entryEmail.pack(pady=5)
+
+        def EmpleadoRegistrado():
+            cedula = entryCedula.get()
+            nombre = entryNombre.get()
+            apellido = entryApellido.get()
+            telefono = entryTelefono.get()
+            contra = entryContra.get()
+            email = entryEmail.get()
+            self.funciones.registrar_empleado(cedula, nombre, apellido, telefono, contra, email)
+
+        btn_ingresar = tk.Button(entrada_frame, text="Ingresar", font=("Arial", 12), bg="#333", fg="white", command=EmpleadoRegistrado)
         btn_ingresar.pack(pady=10)
 
         self.mostrar_MENU()
