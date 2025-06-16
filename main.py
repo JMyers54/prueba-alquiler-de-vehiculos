@@ -1,4 +1,4 @@
-from interfaz import Interfaz
+from Views.interfaz import Interfaz
 
 class Main():
     def main():
