@@ -5,8 +5,7 @@ from tkinter import messagebox
 import winsound
 from Models.ConexionBD import ConexionDB
 
-
-class Administrador():
+class Administrador():    
     def __init__(self,Cedula,Nombre,Apellido,Telefono,Email,Usuario,Contraseña):
         self.Cedula = Cedula
         self.Nombre = Nombre
@@ -27,19 +26,9 @@ class Administrador():
             db.conn.commit()
         finally:
             db.cerrar()
-    
+
     def gestionarEmpleados(self):
         pass
-    
-    def gestionarCliente(self):
-        pass
-
-    def agregarVehiculos(self):
-        pass
-
-    def eliminarVehiculos(self):
-        pass
-
     def informeUsoVehiculos(self):
         pass
 
@@ -48,28 +37,15 @@ class Administrador():
 class Empleado(Administrador):
     def __init__(self,Cedula,Nombre,Apellido,Telefono,Email):
         super().__init__(Cedula,Nombre,Apellido,Telefono,Email)
-    
-    def  gestionarClientes(self):
-        pass
 
     def gestionarAlquiler(self):
         pass
 
     def gestionarDevolucion(self):
-        pass
+            pass
 
 
-
+            
 class Cliente(Empleado):
     def __init__(self,Cedula,Nombre,Apellido,Telefono,Email,LincenciaDeConducir):
         super().__init__(Cedula,Nombre,Apellido,Telefono,Email)
-        self.LincenciaDeConduncir = LincenciaDeConducir
-    
-    def ConsultarVehiculosDisponibles(self):
-        pass
-
-    def RealizarReserva(Self):
-        pass
-
-    def DevolverVehiculo(self):
-        pass
