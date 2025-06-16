@@ -13,7 +13,7 @@ class Funciones():
             conexion.crearConexion()
             db = conexion.getConnection()
             cursor = db.cursor()
-            sql = "INSERT INTO empleados (Cedula, Nombre, Apellido, Telefono, Email, Contraseña) VALUES (%s, %s, %s, %s, %s, %s)"
+            sql = "INSERT INTO empleados (Cedula, Nombre, Apellido, Telefono, Contraseña, Email) VALUES (%s, %s, %s, %s, %s, %s)"
             datos = (cedula, nombre, apellido, telefono, email, contra)
             cursor.execute(sql, datos)
             db.commit()
