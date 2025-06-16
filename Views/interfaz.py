@@ -1,7 +1,9 @@
+        
 from tkinter import *
 import tkinter as tk
 from Controllers.funcionesGenerales import Funciones
 from Views.Tooltip import Tooltip
+from Controllers.funcionesGenerales import Funciones
 from PIL import Image, ImageTk
 
 class Interfaz():
@@ -60,6 +62,7 @@ class Interfaz():
         label5.place(relx=0.5, rely=0.85, anchor="n")
 
         tk.Label(self.frame_empleado, text="Gestión de empleados", fg="white", bg="#161616", font=("Arial", 18)).pack(pady=30)
+
 
         entrada_frame = tk.Frame(self.frame_empleado, bg="#161616")
         entrada_frame.pack(pady=10)
@@ -212,83 +215,6 @@ class Interfaz():
         self.btnEntrar.place(x=300, y=300, width=80, height=30)
         Tooltip(self.btnEntrar, "Entrar al menú principal...")
 
-def mostrar_empleado(self):
-    self.frame_empleado.tkraise()
-    self.actualizar_estado_botones("EMPLEADO")
-
-    # Limpiar contenido previo
-    for widget in self.frame_empleado.winfo_children():
-        widget.destroy()
-
-    tk.Label(self.frame_empleado, text="Gestión de empleados", fg="white", bg="#161616", font=("Arial", 18)).pack(pady=30)
-
-    opciones_frame = tk.Frame(self.frame_empleado, bg="#161616")
-    opciones_frame.pack(pady=10)
-
-    def mostrar_formulario_registro():
-        limpiar_formulario()
-        mostrar_formulario("registro")
-
-    def mostrar_formulario_login():
-        limpiar_formulario()
-        mostrar_formulario("login")
-
-    btn_registro = tk.Button(opciones_frame, text="Registrarse", bg="#444", fg="white", command=mostrar_formulario_registro)
-    btn_login = tk.Button(opciones_frame, text="Iniciar Sesión", bg="#444", fg="white", command=mostrar_formulario_login)
-
-    btn_login.grid(row=0, column=0, padx=10)
-    btn_registro.grid(row=0, column=1, padx=10)
-
-    formulario_frame = tk.Frame(self.frame_empleado, bg="#161616")
-    formulario_frame.pack(pady=20)
-
-    def limpiar_formulario():
-        for widget in formulario_frame.winfo_children():
-            widget.destroy()
-
-    def mostrar_formulario(tipo):
-        if tipo == "registro":
-            campos = {}
-            for texto in [("Ingrese cédula", "cedula"),
-                          ("Ingrese su Nombre", "nombre"),
-                          ("Ingrese sus apellidos", "apellido"),
-                          ("Ingrese su telefono", "telefono"),
-                          ("Agregue su email", "email"),
-                          ("Agregue contraseña", "contra")]:
-                tk.Label(formulario_frame, text=texto[0], fg="white", bg="#161616", font=("Arial", 14)).pack(pady=5)
-                entrada = tk.Entry(formulario_frame, font=("Arial", 12), show="*" if texto[1] == "contra" else "")
-                entrada.pack(pady=5)
-                campos[texto[1]] = entrada
-
-            def registrar():
-                datos = {k: e.get() for k, e in campos.items()}
-                self.funciones.registrar_empleado(
-                    datos["cedula"], datos["nombre"], datos["apellido"],
-                    datos["telefono"], datos["email"], datos["contra"]
-                )
-
-            tk.Button(formulario_frame, text="Registrar", font=("Arial", 12), bg="#333", fg="white", command=registrar).pack(pady=10)
-
-        elif tipo == "login":
-            tk.Label(formulario_frame, text="Cédula", fg="white", bg="#161616", font=("Arial", 14)).pack(pady=5)
-            entry_cedula = tk.Entry(formulario_frame, font=("Arial", 12))
-            entry_cedula.pack(pady=5)
-
-            tk.Label(formulario_frame, text="Contraseña", fg="white", bg="#161616", font=("Arial", 14)).pack(pady=5)
-            entry_contra = tk.Entry(formulario_frame, show="*", font=("Arial", 12))
-            entry_contra.pack(pady=5)
-
-            def login():
-                cedula = entry_cedula.get()
-                contra = entry_contra.get()
-                if self.funciones.iniciar_sesion_empleado(cedula, contra):
-                    tk.messagebox.showinfo("Éxito", "Sesión iniciada correctamente.")
-                else:
-                    tk.messagebox.showerror("Error", "Cédula o contraseña incorrecta.")
-
-            tk.Button(formulario_frame, text="Iniciar Sesión", font=("Arial", 12), bg="#333", fg="white", command=login).pack(pady=10)
-
-        
         self.ventana.mainloop()
 
 if __name__ == "__main__":
