@@ -21,4 +21,35 @@ class Funciones():
             conexion.cerrarConexion()
             messagebox.showinfo("empleado registrado con éxito")
         except Exception as e:
+<<<<<<< HEAD
             messagebox.showerror("Error",f"al registrar empleado: {e}")
+=======
+            messagebox.showerror("Error",f"al registrar empleado: {e}")
+
+    def solicitarClave(self):
+        clave = simpledialog.askstring("clave de Administrador", "Ingrese la clave de Administrador: ")
+        if clave != self.adminClave:
+            messagebox.showerror("Error", "Clave Incorrecta!")
+            return False
+        return True
+    pass
+
+def iniciar_sesion_empleado(self, cedula, contra):
+    try:
+        conexion = ConexionDB()
+        conexion.crearConexion()
+        db = conexion.getConnection()
+        cursor = db.cursor()
+        cursor.execute("SELECT Contraseña FROM empleados WHERE Cedula = %s", (cedula,))
+        resultado = cursor.fetchone()
+        cursor.close()
+        conexion.cerrarConexion()
+
+        if resultado and resultado[0] == contra:
+            return True
+        return False
+
+    except Exception as e:
+        print(f"Error al iniciar sesión: {e}")
+        return False
+>>>>>>> c32ba384102467e9f85d1260d6742662017707eb
