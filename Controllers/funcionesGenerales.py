@@ -22,11 +22,3 @@ class Funciones():
             messagebox.showinfo("empleado registrado con éxito")
         except Exception as e:
             messagebox.showerror("Error",f"al registrar empleado: {e}")
-
-    def solicitarClave(self):
-        clave = simpledialog.askstring("clave de Administrador", "Ingrese la clave de Administrador: ")
-        if clave != self.adminClave:
-            messagebox.showerror("Error", "Clave Incorrecta!")
-            return False
-        return True
-    pass
