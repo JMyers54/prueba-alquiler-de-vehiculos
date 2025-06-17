@@ -5,6 +5,11 @@ from Controllers.funcionesGenerales import Funciones
 from Views.Tooltip import Tooltip
 from Controllers.funcionesGenerales import Funciones
 from PIL import Image, ImageTk
+from tkinter import messagebox
+from tkinter import Toplevel, Label, Entry, Button, messagebox
+from Controllers.funcionesGenerales import Funciones
+
+
 
 class Interfaz():
     def abrir_pestanas(self):
@@ -215,6 +220,35 @@ class Interfaz():
         self.btnEntrar.place(x=300, y=300, width=80, height=30)
         Tooltip(self.btnEntrar, "Entrar al menú principal...")
 
+    def __init__(self, root):
+        self.root = root
+        self.funciones = Funciones()
+
+    def mostrar_login_empleado(self):
+        ventana_login = Toplevel(self.root)
+        ventana_login.title("Iniciar sesión - Empleado")
+
+        Label(ventana_login, text="Cédula:").grid(row=0, column=0, padx=10, pady=10)
+        cedula_entry = Entry(ventana_login)
+        cedula_entry.grid(row=0, column=1, padx=10, pady=10)
+
+        Label(ventana_login, text="Contraseña:").grid(row=1, column=0, padx=10, pady=10)
+        contra_entry = Entry(ventana_login, show="*")
+        contra_entry.grid(row=1, column=1, padx=10, pady=10)
+
+        def intentar_login():
+            cedula = cedula_entry.get()
+            contra = contra_entry.get()
+
+            if self.funciones.iniciar_sesion_empleado(cedula, contra):
+                messagebox.showinfo("Éxito", "Inicio de sesión exitoso.")
+                ventana_login.destroy()
+                # Aquí puedes redirigir a la ventana principal del empleado
+            else:
+                messagebox.showerror("Error", "Cédula o contraseña incorrecta.")
+
+        Button(ventana_login, text="Iniciar sesión", command=intentar_login).grid(row=2, column=0, columnspan=2, pady=10)
+    
         self.ventana.mainloop()
 
 if __name__ == "__main__":

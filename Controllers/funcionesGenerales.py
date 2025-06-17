@@ -2,6 +2,7 @@ from tkinter import *
 import tkinter as tk
 from tkinter import messagebox, simpledialog
 from Models.ConexionBD import ConexionDB
+
 class Funciones():
     def __init__(self, ventana):
         self.ventana = ventana
@@ -30,3 +31,29 @@ class Funciones():
             return False
         return True
     pass
+
+    def iniciar_sesion_empleado(self, cedula, contra):
+        try:
+            conexion = ConexionDB()
+            conexion.crearConexion()
+            db = conexion.getConnection()
+
+            with db.cursor() as cursor:
+                cursor.execute("SELECT Contraseña FROM empleados WHERE Cedula = %s", (cedula,))
+                resultado = cursor.fetchone()
+
+            conexion.cerrarConexion()
+
+            if resultado is None:
+                print("Cédula no registrada.")
+                return False
+
+            if resultado[0] == contra:
+                return True
+            else:
+                print("Contraseña incorrecta.")
+                return False
+
+        except Exception as e:
+            print(f"Error al iniciar sesión: {e}")
+            return False
