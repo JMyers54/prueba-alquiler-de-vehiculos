@@ -44,8 +44,6 @@ class Empleado(Administrador):
     def gestionarDevolucion(self):
             pass
 
-
-            
 class Cliente(Empleado):
     def __init__(self,Cedula,Nombre,Apellido,Telefono,Email,LincenciaDeConducir):
         super().__init__(Cedula,Nombre,Apellido,Telefono,Email)
