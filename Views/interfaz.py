@@ -3,22 +3,21 @@ from tkinter import *
 import tkinter as tk
 from Controllers.funcionesGenerales import Funciones
 from Views.Tooltip import Tooltip
-from Controllers.funcionesGenerales import Funciones
 from PIL import Image, ImageTk
 from tkinter import messagebox
-from tkinter import Toplevel, Label, Entry, Button, messagebox
-from Controllers.funcionesGenerales import Funciones
+from tkinter import Toplevel
 
 
 
 class Interfaz():
     def abrir_pestanas(self):
+#-------------------------------------pantalla principal--------------------------------------------------
         self.nueva_ventana = tk.Toplevel(self.ventana)
         self.nueva_ventana.title("Panel principal")
         self.nueva_ventana.geometry("1200x700")
         self.nueva_ventana.config(bg="#161616")
 
-        self.frame_lateral = tk.Frame(self.nueva_ventana, bg="#161616", width=150)
+        self.frame_lateral = tk.Frame(self.nueva_ventana, bg="#222222", width=150)
         self.frame_lateral.place(x=0, y=0, relheight=1)
 
         self.btn_jcs = tk.Button(self.frame_lateral, text="MENÚ", command=self.mostrar_MENU, bg="#333", fg="white")
@@ -30,6 +29,9 @@ class Interfaz():
         self.btn_inventario = tk.Button(self.frame_lateral, text="INVENTARIO", command=self.mostrar_inventario, bg="#333", fg="white")
         self.btn_inventario.place(relx=0.5, rely=0.57, anchor="center", width=100, height=40)
 
+        self.btn_administrador = tk.Button(self.frame_lateral, text="ADMINISTRADOR", command=self.mostrar_administrador, bg="#333", fg="white")
+        self.btn_administrador.place(relx=0.5, rely=0.36, anchor="center", width=100, height=40)
+
         self.contenedor_frames = tk.Frame(self.nueva_ventana, bg="#161616", width=1050, height=700)
         self.contenedor_frames.place(x=150, y=0)
 
@@ -38,6 +40,9 @@ class Interfaz():
 
         self.frame_empleado = tk.Frame(self.contenedor_frames, bg="#161616", width=1050, height=700)
         self.frame_empleado.place(x=0, y=0, relwidth=1, relheight=1)
+
+        self.frame_administrador = tk.Frame(self.contenedor_frames, bg="#161616", width=1050, height=700)
+        self.frame_administrador.place(x=0, y=0,relwidth=1 ,relheight=1)
 
         self.frame_inventario = tk.Frame(self.contenedor_frames, bg="#161616", width=1050, height=700)
         self.frame_inventario.place(x=0, y=0, relwidth=1, relheight=1)
@@ -65,41 +70,105 @@ class Interfaz():
 
         label5 = tk.Label(self.frame_MENU, text="LAMBORGHINI VENENO", fg="white", bg="#161616", font=("Arial", 16))
         label5.place(relx=0.5, rely=0.85, anchor="n")
+#----------------------------------segmento administrador--------------------------------------------------------------------
+        self.label1 = tk.Label(self.frame_administrador, image=self.logo, bd=0)
+        self.label1.place(x=385, y=70, width=330, height=220)
 
-        tk.Label(self.frame_empleado, text="Gestión de empleados", fg="white", bg="#161616", font=("Arial", 18)).pack(pady=30)
+        tk.Label(self.frame_administrador, text=" Area de Administrador", fg="white", bg="#161616", font=("Arial", 16)).place(rely=0.45, relx=0.43)
 
+        self.registrarse_empleado = tk.Button(self.frame_administrador, text="Registrarse", font=("Arial", 13), bg="#333", fg="white", command=self.resgistro_empleado)
+        self.registrarse_empleado.place(rely=0.70, relx=0.55)
 
+        lblId = tk.Label(self.frame_administrador, text="Id:", fg="white", bg="#161616", font=("Arial", 12))
+        lblId.place(rely=0.55, relx=0.41)
+        entryId = tk.Entry(self.frame_administrador, font=("Arial", 12))
+        entryId.place(rely=0.55, relx=0.45)
+
+        lblContraAdmin = tk.Label(self.frame_administrador, text="Contraseña:", fg="white", bg="#161616", font=("Arial", 12))
+        lblContraAdmin.place(rely=0.60, relx=0.35)
+        entryContraAdmin = tk.Entry(self.frame_administrador, show="*", font=("Arial", 12))
+        entryContraAdmin.place(rely=0.60, relx=0.45)
+        
+        def login_admin():
+            id = entryId.get()
+            contraAdmin = entryContraAdmin.get()
+            if self.funciones.iniciar_sesion_admin(id, contraAdmin):
+                messagebox.showinfo("Éxito", "Inicio de sesión exitoso.")
+                # Aquí puedes redirigir a la ventana principal del empleado
+            else:
+                messagebox.showerror("Error", "Cédula o contraseña incorrecta.")
+
+        self.iniciar_sesion_empleado = tk.Button(self.frame_administrador, text="Iniciar Sesión", font=("Arial", 13), bg="#333", fg="white", command=login_admin)
+        self.iniciar_sesion_empleado.place(rely=0.70, relx=0.42)
+#----------------------------------segmento empleados------------------------------------------------------------------------
+        self.label1 = tk.Label(self.frame_empleado, image=self.logo, bd=0)
+        self.label1.place(x=385, y=70, width=330, height=220)
+
+        tk.Label(self.frame_empleado, text="   Area de Empleados", fg="white", bg="#161616", font=("Arial", 16)).place(rely=0.45, relx=0.43)
+
+        self.registrarse_empleado = tk.Button(self.frame_empleado, text="Registrarse", font=("Arial", 13), bg="#333", fg="white", command=self.resgistro_empleado)
+        self.registrarse_empleado.place(rely=0.70, relx=0.55)
+
+        lblCedula = tk.Label(self.frame_empleado, text="Cédula:", fg="white", bg="#161616", font=("Arial", 12))
+        lblCedula.place(rely=0.55, relx=0.38)
+        entryCedula = tk.Entry(self.frame_empleado, font=("Arial", 12))
+        entryCedula.place(rely=0.55, relx=0.45)
+
+        lblContra = tk.Label(self.frame_empleado, text="Contraseña:", fg="white", bg="#161616", font=("Arial", 12))
+        lblContra.place(rely=0.60, relx=0.35)
+        entryContra = tk.Entry(self.frame_empleado, show="*", font=("Arial", 12))
+        entryContra.place(rely=0.60, relx=0.45)
+
+        def intentar_login():
+            cedula = entryCedula.get()
+            contra = entryContra.get()
+            if self.funciones.iniciar_sesion_empleado(cedula, contra):
+                messagebox.showinfo("Éxito", "Inicio de sesión exitoso.")
+                # Aquí puedes redirigir a la ventana principal del empleado
+            else:
+                messagebox.showerror("Error", "Cédula o contraseña incorrecta.")
+
+        self.iniciar_sesion_empleado = tk.Button(self.frame_empleado, text="Iniciar Sesión", font=("Arial", 13), bg="#333", fg="white", command=intentar_login)
+        self.iniciar_sesion_empleado.place(rely=0.70, relx=0.42)
+    
+    def resgistro_empleado(self):
+        self.pestaña_registros_empleado = tk.Toplevel(self.frame_empleado)
+        self.pestaña_registros_empleado.title("registrar empleado")
+        self.pestaña_registros_empleado.geometry("600x600")
+        self.pestaña_registros_empleado.config(bg="#161616")
         entrada_frame = tk.Frame(self.frame_empleado, bg="#161616")
         entrada_frame.pack(pady=10)
 
-        lblCedula = tk.Label(entrada_frame, text="Ingrese cédula", fg="white", bg="#161616", font=("Arial", 14))
+        tk.Label(self.pestaña_registros_empleado, text="Gestión de empleados", fg="white", bg="#161616", font=("Arial", 18)).pack(pady=30)
+
+        lblCedula = tk.Label(self.pestaña_registros_empleado, text="Ingrese cédula*", fg="white", bg="#161616", font=("Arial", 14))
         lblCedula.pack(pady=5)
-        entryCedula = tk.Entry(entrada_frame, font=("Arial", 12))
+        entryCedula = tk.Entry(self.pestaña_registros_empleado, font=("Arial", 12))
         entryCedula.pack(pady=5)
 
-        lblNombre = tk.Label(entrada_frame, text="Ingrese su Nombre", fg="white", bg="#161616", font=("arial", 14))
+        lblNombre = tk.Label(self.pestaña_registros_empleado, text="Ingrese su Nombre*", fg="white", bg="#161616", font=("arial", 14))
         lblNombre.pack(pady=5)
-        entryNombre = tk.Entry(entrada_frame, font=("arial", 12))
+        entryNombre = tk.Entry(self.pestaña_registros_empleado, font=("arial", 12))
         entryNombre.pack(pady=5)
 
-        lblApellido = tk.Label(entrada_frame, text="Ingrese sus apellidos", fg="white", bg="#161616", font=("Arial", 14))
+        lblApellido = tk.Label(self.pestaña_registros_empleado, text="Ingrese sus apellidos*", fg="white", bg="#161616", font=("Arial", 14))
         lblApellido.pack(pady=5)
-        entryApellido = tk.Entry(entrada_frame, font=("arial", 12))
+        entryApellido = tk.Entry(self.pestaña_registros_empleado, font=("arial", 12))
         entryApellido.pack(pady=5)
 
-        lbltelefono = tk.Label(entrada_frame, text="Ingrese su telefono", fg="white", bg="#161616", font=("Arial", 14))
+        lbltelefono = tk.Label(self.pestaña_registros_empleado, text="Ingrese su telefono*", fg="white", bg="#161616", font=("Arial", 14))
         lbltelefono.pack(pady=5)
-        entryTelefono = tk.Entry(entrada_frame, font=("arial", 12))
+        entryTelefono = tk.Entry(self.pestaña_registros_empleado, font=("arial", 12))
         entryTelefono.pack(pady=5)
 
-        lblContra = tk.Label(entrada_frame, text="Agregue contraseña", fg="white", bg="#161616", font=("Arial", 14))
+        lblContra = tk.Label(self.pestaña_registros_empleado, text="Agregue contraseña*", fg="white", bg="#161616", font=("Arial", 14))
         lblContra.pack(pady=5)
-        entryContra = tk.Entry(entrada_frame, show="*", font=("Arial", 12))
+        entryContra = tk.Entry(self.pestaña_registros_empleado, show="*", font=("Arial", 12))
         entryContra.pack(pady=5)
 
-        lblEmail = tk.Label(entrada_frame, text="agregue su email", fg="white", bg="#161616", font=("Arial", 14))
+        lblEmail = tk.Label(self.pestaña_registros_empleado, text="agregue su email*", fg="white", bg="#161616", font=("Arial", 14))
         lblEmail.pack(pady=5)
-        entryEmail = tk.Entry(entrada_frame, font=("Arial",12))
+        entryEmail = tk.Entry(self.pestaña_registros_empleado, font=("Arial",12))
         entryEmail.pack(pady=5)
 
         def EmpleadoRegistrado():
@@ -107,19 +176,20 @@ class Interfaz():
             nombre = entryNombre.get()
             apellido = entryApellido.get()
             telefono = entryTelefono.get()
-            contra = entryContra.get()
             email = entryEmail.get()
-            self.funciones.registrar_empleado(cedula, nombre, apellido, telefono, contra, email)
+            contra = entryContra.get()
+            self.funciones.registrar_empleado(cedula, nombre, apellido, telefono, email, contra)
 
-        btn_ingresar = tk.Button(entrada_frame, text="Ingresar", font=("Arial", 12), bg="#333", fg="white", command=EmpleadoRegistrado)
-        btn_ingresar.pack(pady=10)
-
+        btn_registrarse = tk.Button(self.pestaña_registros_empleado, text="Registrarse", font=("Arial", 12), bg="#333", fg="white", command=EmpleadoRegistrado)
+        btn_registrarse.pack(pady=15)
+#--------------------------------------------funcion para las diferentes ventanas----------------------------------------------
         self.mostrar_MENU()
 
     def actualizar_estado_botones(self, activo):
         self.btn_jcs.config(bg="#333")
         self.btn_empleado.config(bg="#333")
         self.btn_inventario.config(bg="#333")
+        self.btn_administrador.config(bg="#333")
 
         if activo == "MENU":
             self.btn_jcs.config(bg="#555")
@@ -127,6 +197,8 @@ class Interfaz():
             self.btn_empleado.config(bg="#555")
         elif activo == "INVENTARIO":
             self.btn_inventario.config(bg="#555")
+        elif activo == "ADMINISTRADOR":
+            self.btn_administrador.config(bg="#555")
 
     def mostrar_MENU(self):
         self.frame_MENU.tkraise()
@@ -139,7 +211,11 @@ class Interfaz():
     def mostrar_inventario(self):
         self.frame_inventario.tkraise()
         self.actualizar_estado_botones("INVENTARIO")
-
+    
+    def mostrar_administrador(self):
+        self.frame_administrador.tkraise()
+        self.actualizar_estado_botones("ADMINISTRADOR")
+#---------------------------------------------------inventario----------------------------------------------------------------
     def construir_inventario(self):
         tk.Label(
             self.frame_inventario,
@@ -197,11 +273,12 @@ class Interfaz():
             tk.Label(frame_auto, text=auto["nombre"], bg="#2a2a2a", fg="white", font=("Arial", 12, "bold")).pack()
             tk.Label(frame_auto, text=f"Estado: {auto['estado']}", bg="#2a2a2a", fg="white").pack()
             tk.Label(frame_auto, text=f"Precio: {auto['precio']}", bg="#2a2a2a", fg="white").pack()
-
-    def __init__(self):
-        self.ventana = tk.Tk()
+#-----------------------------------------ventana original----------------------------------------------------------------------
+    def __init__(self, ventana):
+        self.ventana = ventana 
         self.ventana.title("Alquiler de carros")
         self.ventana.config(width=700, height=500, bg="#161616")
+        self.funciones = Funciones(self.ventana)
 
         self.logo = tk.PhotoImage(file=r"prueba-alquiler-de-vehiculos\icons\logo.png")
         self.label1 = tk.Label(self.ventana, image=self.logo, bd=0)
@@ -218,38 +295,7 @@ class Interfaz():
             command=self.abrir_pestanas
         )
         self.btnEntrar.place(x=300, y=300, width=80, height=30)
-        Tooltip(self.btnEntrar, "Entrar al menú principal...")
-
-    def __init__(self, root):
-        self.root = root
-        self.funciones = Funciones()
-
-    def mostrar_login_empleado(self):
-        ventana_login = Toplevel(self.root)
-        ventana_login.title("Iniciar sesión - Empleado")
-
-        Label(ventana_login, text="Cédula:").grid(row=0, column=0, padx=10, pady=10)
-        cedula_entry = Entry(ventana_login)
-        cedula_entry.grid(row=0, column=1, padx=10, pady=10)
-
-        Label(ventana_login, text="Contraseña:").grid(row=1, column=0, padx=10, pady=10)
-        contra_entry = Entry(ventana_login, show="*")
-        contra_entry.grid(row=1, column=1, padx=10, pady=10)
-
-        def intentar_login():
-            cedula = cedula_entry.get()
-            contra = contra_entry.get()
-
-            if self.funciones.iniciar_sesion_empleado(cedula, contra):
-                messagebox.showinfo("Éxito", "Inicio de sesión exitoso.")
-                ventana_login.destroy()
-                # Aquí puedes redirigir a la ventana principal del empleado
-            else:
-                messagebox.showerror("Error", "Cédula o contraseña incorrecta.")
-
-        Button(ventana_login, text="Iniciar sesión", command=intentar_login).grid(row=2, column=0, columnspan=2, pady=10)
-    
-        self.ventana.mainloop()
+        Tooltip(self.btnEntrar, "Entrar al menú principal...")    
 
 if __name__ == "__main__":
     Interfaz()
