@@ -66,18 +66,6 @@ class Empleado(Administrador):
         finally:
             db.cerrar()
 
-    def gestionarEmpleados(self):
-        pass
-    def informeUsoVehiculos(self):
-        pass
-
-    def gestionarAlquiler(self):
-        pass
-
-    def gestionarDevolucion(self):
-            pass
-
-
 class Cliente(Empleado):
     def __init__(self,Cedula,Nombre,Apellido,Telefono,Email,LicenciaDeConducir):
         self.Cedula = Cedula
