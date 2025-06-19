@@ -7,4 +7,4 @@ class Main():
         self.app = Interfaz(self.root)
         self.root.mainloop()
 if __name__== "__main__":
-    Main()
+    Main() 
