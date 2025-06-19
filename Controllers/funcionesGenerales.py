@@ -6,7 +6,6 @@ from Models.ConexionBD import ConexionDB
 class Funciones():
     def __init__(self, ventana):
         self.ventana = ventana
-    
 
     def registrar_empleado(self, cedula, nombre, apellido, telefono, email, contra):
         try:
@@ -83,3 +82,22 @@ class Funciones():
         except Exception as e:
             print(f"Error al iniciar sesión: {e}")
             return False
+    
+    def registrar_alquiler(self, id_vehiculo, cedula, nombre, telefono,email, licencia, fecha_inicial, fecha_final):
+        try:
+            conexion = ConexionDB()
+            conexion.crearConexion()
+            db = conexion.getConnection()
+            with db.cursor() as cursor:
+                cursor.execute("INSERT INTO alquilados (ID_VEHICULO, ID_CLIENTE, NOMBRE_CLIENTE, TELEFONO_CLIENTE,EMAIL, LICENCIADECONDUCIR, FECHA_INICIAL, FECHA_FINAL, DEVUELTOS) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, FALSE)", (id_vehiculo, cedula, nombre, telefono, email, licencia, fecha_inicial, fecha_final))
+                cursor.execute("UPDATE vehiculos SET ESTADO = 'alquilado' WHERE ID = %s", (id_vehiculo,))
+                db.commit()
+            return True
+        except Exception as e:
+            print(f"Error al registrar alquiler: {e}")
+            return False
+        finally:
+            conexion.cerrarConexion()
+
+
+
