@@ -57,11 +57,7 @@ class Empleado(Administrador):
     def registrar(self):
         db = ConexionDB()
         try:
-            db.cursor.execute("""
-                INSERT INTO administradores
-                (cedula, nombre, apellido, telefono, email, usuario, contraseña)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)""",
-                (self.Cedula, self.Nombre, self.Apellido, self.Telefono, self.Email, self.usuario, self.contraseña))
+            db.cursor.execute("INSERT INTO administradores(cedula, nombre, apellido, telefono, email, usuario, contraseña)VALUES (%s, %s, %s, %s, %s, %s, %s)",(self.Cedula, self.Nombre, self.Apellido, self.Telefono, self.Email, self.usuario, self.contraseña))
             db.conn.commit()
         finally:
             db.cerrar()

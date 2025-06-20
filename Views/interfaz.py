@@ -155,15 +155,7 @@ class Interfaz():
             self.ventana_alquilar.geometry("400x400")
             self.ventana_alquilar.configure(bg="#161616")
 
-            campos = {
-                "Cédula": tk.StringVar(),
-                "Nombre": tk.StringVar(),
-                "Telefono": tk.StringVar(),
-                "Email": tk.StringVar(),
-                "Licencia de conducir": tk.StringVar(),
-                "fecha Inicio (año/mes/dia)": tk.StringVar(),
-                "fecha Fin (año/mes/dia)": tk.StringVar()
-            }
+            campos = {"Cédula": tk.StringVar(),"Nombre": tk.StringVar(),"Telefono": tk.StringVar(),"Email": tk.StringVar(),"Licencia de conducir": tk.StringVar(),"fecha Inicio (año/mes/dia)": tk.StringVar(),"fecha Fin (año/mes/dia)": tk.StringVar()}
 
             row = 0
             for label_text, var in campos.items():
@@ -211,8 +203,9 @@ class Interfaz():
         self.ventana_vehiculo.config(bg="#161616")
         entrada_frame = tk.Frame(self.ventana_vehiculo, bg="#161616")
         entrada_frame.pack(pady=10)
-
-        tk.Label(self.ventana_vehiculo, text="Agregar Vehiculo", fg="white", bg="#161616", font=("Arial", 18)).place(relx=0.40,rely=0.25)
+        self.logo_vehiculo = tk.Label(self.ventana_vehiculo,image=self.logo, bd=0)
+        self.logo_vehiculo.place(x=300, y=50, width=330, height=220)
+        tk.Label(self.ventana_vehiculo, text="Agregar Vehiculo", fg="white", bg="#161616", font=("Arial", 18)).place(relx=0.40,rely=0.30)
 
         lblId = tk.Label(self.ventana_vehiculo, text="Ingrese el Id*", fg="white", bg="#161616", font=("Arial", 12))
         lblId.place(relx=0.16, rely=0.40)
@@ -238,6 +231,7 @@ class Interfaz():
         lblTipo.place(relx=0.55, rely=0.40)
         entryTipo = tk.Entry(self.ventana_vehiculo, font=("Arial", 12))
         entryTipo.place(relx=0.70, rely=0.40)
+        Tooltip(entryTipo, "si el vehiculo es: Camioneta,Deportivo,etc...")
         
         lblPrecioDia = tk.Label(self.ventana_vehiculo, text="valor diario*", fg="white", bg="#161616", font=("Arial", 12))
         lblPrecioDia.place(relx=0.58, rely=0.50)
@@ -248,6 +242,7 @@ class Interfaz():
         lblEstado.place(relx=0.56, rely=0.60)
         entryEstado = tk.Entry(self.ventana_vehiculo, font=("Arial",12))
         entryEstado.place(relx=0.70, rely=0.60)
+        Tooltip(entryEstado, "si el vehiculo está: disponible, alquilado o en mantenimiento")
 
         self.ruta_imagen = tk.StringVar()
 
@@ -284,11 +279,12 @@ class Interfaz():
                 messagebox.showerror("Error", "No se pudo agregar el vehículo.")
                 return self.resgistrar_vehiculos
             
-        self.btn_imagen = tk.Button(self.ventana_vehiculo, text="foto", command=Imagen, bg="#444", fg="white")
-        self.btn_imagen.place(relx=0.10, rely=0.50)
+        self.btn_imagen = tk.Button(self.ventana_vehiculo, text="foto", command=Imagen, bg="#333", fg="white",  font=("Arial", 12))
+        self.btn_imagen.place(relx=0.70, rely=0.70)
 
-        self.btn_vehiculoRegistrado = tk.Button(self.ventana_vehiculo, text="guardar", command=VehiculoRegistrado, bg="#444", fg="white")
-        self.btn_vehiculoRegistrado.place(relx=0.5, rely=0.50)
+        self.btn_vehiculoRegistrado = tk.Button(self.ventana_vehiculo, text="guardar", command=VehiculoRegistrado, bg="#333", fg="white", font=("Arial", 12))
+        self.btn_vehiculoRegistrado.place(relx=0.60, rely=0.70)
+        Tooltip(self.btn_vehiculoRegistrado, "guardar nuevo vehiculo")
 
     def abrir_pestanas(self):
         self.nueva_ventana = tk.Toplevel(self.ventana)
@@ -301,15 +297,19 @@ class Interfaz():
 
         self.btn_jcs = tk.Button(self.frame_lateral, text="MENÚ", command=self.mostrar_MENU, bg="#333", fg="white")
         self.btn_jcs.place(relx=0.5, rely=0.50, anchor="center", width=100, height=40)
+        Tooltip(self.btn_jcs, "novedad")
 
         self.btn_empleado = tk.Button(self.frame_lateral, text="EMPLEADO", command=self.mostrar_empleado, bg="#333", fg="white")
         self.btn_empleado.place(relx=0.5, rely=0.43, anchor="center", width=100, height=40)
+        Tooltip(self.btn_empleado, "area del Empleado")
 
         self.btn_inventario = tk.Button(self.frame_lateral, text="INVENTARIO", command=self.mostrar_inventario, bg="#333", fg="white")
         self.btn_inventario.place(relx=0.5, rely=0.57, anchor="center", width=100, height=40)
+        Tooltip(self.btn_inventario, "area de Alquiler")
 
         self.btn_administrador = tk.Button(self.frame_lateral, text="ADMINISTRADOR", command=self.mostrar_administrador, bg="#333", fg="white")
         self.btn_administrador.place(relx=0.5, rely=0.36, anchor="center", width=100, height=40)
+        Tooltip(self.btn_administrador, "area de Administrador")
 
         self.contenedor_frames = tk.Frame(self.nueva_ventana, bg="#161616", width=1050, height=700)
         self.contenedor_frames.place(x=150, y=0)
@@ -359,11 +359,12 @@ class Interfaz():
         lblId.place(rely=0.55, relx=0.41)
         entryId = tk.Entry(self.frame_administrador, font=("Arial", 12))
         entryId.place(rely=0.55, relx=0.45)
-
+        Tooltip(entryId, "codigo de usuario")
         lblContraAdmin = tk.Label(self.frame_administrador, text="Contraseña:", fg="white", bg="#161616", font=("Arial", 12))
         lblContraAdmin.place(rely=0.60, relx=0.35)
         entryContraAdmin = tk.Entry(self.frame_administrador, show="*", font=("Arial", 12))
         entryContraAdmin.place(rely=0.60, relx=0.45)
+        Tooltip(entryContraAdmin, "contraseña registrada")
         
         def login_admin():
             id = entryId.get()
@@ -374,7 +375,7 @@ class Interfaz():
                 self.ventana_admin.geometry("700x600")
                 self.ventana_admin.configure(bg="#161616")
                 self.logo_admin = tk.Label(self.ventana_admin,image=self.logo, bd=0)
-                self.logo_admin.place(x=220, y=70, width=330, height=220)
+                self.logo_admin.place(x=210, y=70, width=330, height=220)
                 self.btnRegistro = tk.Button(self.ventana_admin, text="agregar vehiculo", font=("Arial", 13), bg="#333", fg="white",command=self.resgistrar_vehiculos)
                 self.btnRegistro.place(rely=0.70, relx=0.38)
                 self.lblEliminarVehiculo = tk.Label(self.ventana_admin, text="Id del vehiculo a eliminar:",fg="white", bg="#161616", font=("Arial", 12))
@@ -383,7 +384,7 @@ class Interfaz():
                 self.entryEliminar.place(rely=0.60, relx=0.40)
                 self.btn_eliminar = tk.Button(self.ventana_admin, text="Eliminar", font=("Arial", 13), bg="#444", fg="white",  command=eliminar_vehiculo)
                 self.btn_eliminar.place(rely=0.70, relx=0.25)
-                self.btn_registro_clientes = tk.Button(self.ventana_admin, text="informe", font=("Arial", 13), bg="#444", fg="white", command=self.abrir_informe)
+                self.btn_registro_clientes = tk.Button(self.ventana_admin, text="informe clientes", font=("Arial", 13), bg="#444", fg="white", command=self.abrir_informe)
                 self.btn_registro_clientes.place(rely=0.70, relx=0.60)
                 self.btn_registro_empleados = tk.Button(self.ventana_admin, text="Gestionar empleados",font=("Arial", 13),bg="#444", fg="white", command=self.gestionar_empleados )
                 self.btn_registro_empleados.place(rely=0.80, relx=0.40)
@@ -391,7 +392,7 @@ class Interfaz():
             else:
                 messagebox.showerror("Error", "Cédula o contraseña incorrecta.")
         self.iniciar_sesion_empleado = tk.Button(self.frame_administrador, text="Iniciar Sesión", font=("Arial", 13), bg="#333", fg="white", command=login_admin)
-        self.iniciar_sesion_empleado.place(rely=0.70, relx=0.42)
+        self.iniciar_sesion_empleado.place(rely=0.70, relx=0.48)
 
         def eliminar_vehiculo():
             id = self.entryEliminar.get()
@@ -432,11 +433,11 @@ class Interfaz():
             contra = entryContra.get()
             if self.funciones.iniciar_sesion_empleado(cedula, contra):
                 self.ventana_empleado = tk.Toplevel(self.nueva_ventana)
-                self.ventana_empleado.title("MENU ADMINISTRADOR")
+                self.ventana_empleado.title("MENU EMPLEADO")
                 self.ventana_empleado.geometry("700x600")
                 self.ventana_empleado.configure(bg="#161616")
                 self.logo_empleado = tk.Label(self.ventana_empleado,image=self.logo, bd=0)
-                self.logo_empleado.place(x=280, y=70, width=330, height=220)
+                self.logo_empleado.place(x=190, y=70, width=330, height=220)
                 self.btnRegistro = tk.Button(self.ventana_empleado, text="Generar Registro", font=("Arial", 13), bg="#333", fg="white", command=self.abrir_informe)
                 self.btnRegistro.place(rely=0.70, relx=0.42)
             else:
